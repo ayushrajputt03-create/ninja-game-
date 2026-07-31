@@ -1,79 +1,37 @@
-# Northstar School OS
+# 🥷 Number Ninja v2 — 100-Level Adaptive Math Mastery Game
 
-Production-oriented school operations dashboard for student records, attendance,
-fees, academics, and notices.
+A mobile-first, PWA-enabled math game with 100 levels across 10 worlds. Built entirely client-side — no backend, no database.
 
-## Stack
+## Features
+- **100 Levels** across 10 Worlds (10 topics × 10 levels each)
+- **Adaptive Difficulty Engine** — adjusts question difficulty based on accuracy & speed
+- **Spaced Repetition** — weak topics automatically reappear in future levels
+- **Mastery-Based Unlock** — next level unlocks only after crossing mastery threshold
+- **Boss Battles** — every 10th level is a boss fight
+- **Daily Challenge** — date-seeded classroom warm-up (same questions for entire class)
+- **Instant Explanations** — concept reinforcement on wrong answers
+- **Certificate Generator** — downloadable PNG/PDF mastery certificates
+- **PWA** — installable on iOS & Android home screens
+- **100% Client-Side** — localStorage only, zero server dependency
 
-- React 18 + Vite
-- Firebase Authentication and Realtime Database
-- Realtime Database Security Rules with school-scoped roles
-- Vercel deployment
+## Tech Stack
+- React + Vite
+- Tailwind CSS (CDN)
+- Custom CSS Design System (`ninja.css`)
+- Web Audio API (no external audio files)
+- Canvas API (certificate generation)
+- localStorage (progress persistence)
 
-## Local development
-
-```powershell
-npm.cmd install
-Copy-Item .env.example .env.local
-npm.cmd run dev
+## Run Locally
+```bash
+npm install
+npm run dev
 ```
 
-Required environment variables:
-
-```env
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_DATABASE_URL=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
-VITE_APP_ENV=development
+## Build
+```bash
+npm run build
 ```
 
-Without Firebase credentials, local development uses device-only demo data.
-Production builds fail closed and show a setup error instead of exposing a demo.
-
-## Database
-
-The production Realtime Database rules are in:
-
-`database.rules.json`
-
-It includes:
-
-- Automatic first-admin school onboarding in a batched write
-- Owner, admin, staff, and viewer roles
-- School-isolated Row Level Security
-- School-scoped student, attendance, fee, and notice paths
-
-Apply after linking a Firebase project:
-
-```powershell
-npx.cmd firebase use YOUR_PROJECT_ID
-npx.cmd firebase deploy --only database
-```
-
-## Deployment
-
-The Vercel project must contain these variables in Development, Preview, and
-Production:
-
-- The six `VITE_FIREBASE_*` values from Firebase Web App configuration
-- `VITE_APP_ENV=production`
-
-Deploy a preview first:
-
-```powershell
-npx.cmd vercel deploy
-```
-
-Promote only after auth, data isolation, and write workflows are verified.
-
-## Security notes
-
-- Never expose Firebase Admin SDK credentials to this frontend.
-- Enable only approved authentication providers.
-- Restrict Firebase Authentication authorized domains to approved domains.
-- Review Realtime Database usage and security rules before onboarding real data.
-- Use synthetic records during acceptance testing.
+## License
+MIT
